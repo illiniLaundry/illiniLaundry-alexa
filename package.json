@@ -1,0 +1,17 @@
+{
+  "name": "illinilaundry",
+  "version": "1.0.0",
+  "description": "An alexa app that gives students access to current laundry status",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "david wang",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-app": "^3.2.0",
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  }
+}
