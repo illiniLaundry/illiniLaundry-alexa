@@ -3,16 +3,6 @@ var _ = require('lodash');
 var requestPromise = require('request-promise');
 var prompts = require('./speech_assets');
 const LAUNDRY_URL = 'http://23.23.147.128/homes/mydata/urba7723';
-//Create different errors and templates
-// const NETWORK_ERROR = 0;
-// const DORM_ERROR = 1;
-// const NETWORK_ERROR_TEMPLATE = 'I was not able to retrieve laundry data, please try again.';
-// const DORM_ERROR_TEMPLATE = 'I didn\'t recognize the dorm ${dormName}.'
-// const ERRORS = [NETWORK_ERROR_TEMPLATE, DORM_ERROR_TEMPLATE];
-//Templates that alexa will read out
-// const LAUNDRY_TEMPLATE = 'There are currently ${availWasher} washers \
-// and ${availDryer} dryers available in ${dormName}.';
-
 /*
 The laundryHelper object that is populated with multiple helper methods.
 These helper methods filter, parse, and convert the json retrieved from the
@@ -42,16 +32,8 @@ laundryHelper.prototype.getLaundryStatus = function() {
  * @return object              The dorm object that was found or an error code
  */
 laundryHelper.prototype.filterLaundryStatus = function(fullStatus, dormName) {
-    //Retrieve the rooms from the unfiltered json object and verify not null
+    //Retrieve the rooms from the unfiltered json object
     var rooms = fullStatus.location.rooms;
-    // if(rooms == null) {
-    //     console.log("rooms was null");
-    //     return NETWORK_ERROR;
-    // }
-    // if(_.isEmpty(dormName)) {
-    //     console.log("slot dorm was null or empty");
-    //     return DORM_ERROR;
-    // }
     //Search inside the json object to retrieve the specified dorm by name
     for(var i = 0; i < rooms.length; i++) {
         var dorm = rooms[i];
@@ -70,9 +52,6 @@ laundryHelper.prototype.filterLaundryStatus = function(fullStatus, dormName) {
  * @return object        An object with extracted laundry info (washers, dryers)
  */
 laundryHelper.prototype.formatLaundryStatus = function(dorm) {
-    //Confirm we haven't reached an ERROR
-    // if(dorm == DORM_ERROR || dorm == NETWORK_ERROR)
-    //     return dorm;
     //Initialize the dorm machines and the empty status object
     var machines = dorm.machines;
     var statusObj = {
@@ -110,11 +89,5 @@ laundryHelper.prototype.convertToSpeechTemplate = function(statusObj) {
     var template = _.template(prompts.laundry_template);
     return template(statusObj)
 }
-
-//Old code used to test the features of laundry helper
-// var laundry = new laundryHelper();
-// laundry.getLaundryStatus().then(function(status) {
-//     console.log(laundry.convertToSpeechTemplate(laundry.formatLaundryStatus(laundry.filterLaundryStatus(status, "ISR: Townsend"))));
-// });
 
 module.exports = laundryHelper;
