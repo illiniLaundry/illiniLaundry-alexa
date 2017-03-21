@@ -16,6 +16,22 @@ skill.launch(function(request, response) {
             .shouldEndSession(false);
 });
 
+//Function for handling cancelling intent
+var cancelIntentFunction = function(request, response) {
+    response.say(prompts.exit_template).shouldEndSession(true);
+}
+
+//Override amazon's cancel and stop intents
+skill.intent('AMAZON.CancelIntent', {}, cancelIntentFunction);
+skill.intent('AMAZON.StopIntent', {}, cancelIntentFunction);
+
+//Override amazon's help intent
+skill.intent('AMAZON.HelpIntent', {}, function(request, response) {
+    response.say(prompts.help_prompt)
+            .reprompt(prompts.reprompt)
+            .shouldEndSession(false);
+});
+
 //Define the intent handler for requesting laundry from a dorm
 skill.intent('laundryIntent', {
     'slots': {
@@ -35,6 +51,7 @@ skill.intent('laundryIntent', {
                 .reprompt(prompts.reprompt)
                 .shouldEndSession(false);
         return true;
+
     }
     else {
         //Attempt to map the user dorm name to a corresponding API dorm name
