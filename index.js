@@ -39,10 +39,10 @@ skill.intent('laundryIntent', {
     },
     //Defines a list of sample utterances for alexa using:
     //https://github.com/alexa-js/alexa-utterances
-    'utterances': ['{|laundry|washer|dryer} {|status|availability|info} {|at|for|in} {-|DORMNAME}']
+    'utterances': ['{|get|retrieve|fetch} {|laundry|washer|dryer} {|status|availability|info} {|at|for|in} {-|DORMNAME}']
 }, function (request, response) {
     //Get the slot value of the dorm spoken by the user
-    var dormName = request.slot('DORMNAME').toLowerCase();
+    var dormName = request.slot('DORMNAME');
     console.log(dormName);
 
     //If no dorm was uttered, prompt and ask the user to repeat themself
@@ -51,9 +51,9 @@ skill.intent('laundryIntent', {
                 .reprompt(prompts.reprompt)
                 .shouldEndSession(false);
         return true;
-
     }
     else {
+        var dormName = dormName.toLowerCase();
         //Attempt to map the user dorm name to a corresponding API dorm name
         var finalDormName = dormName;
         if(dormMap.hasOwnProperty(dormName)) {

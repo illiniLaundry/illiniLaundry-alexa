@@ -1,7 +1,7 @@
 # IlliniLaundry - Amazon Alexa version
 Tired of checking your smartphone for laundry status? Try out IlliniLaundry, now on Amazon Alexa!
 
-Available on the Alexa Skills Store soon!
+Available on the Alexa Skills Store [here](https://www.amazon.com/dp/B06XRJRMZ8/ref=sr_1_1?s=digital-skills&ie=UTF8&qid=1490288121&sr=1-1)!
 
 ## Requirements
 1. Node.js v4.3.2
